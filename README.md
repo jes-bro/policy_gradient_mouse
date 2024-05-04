@@ -1,5 +1,9 @@
 # Policy Gradient Mouse Agent 
 
+## **Quick note** ##
+
+Please just assess the discrete implementation because it works and therefore I tested/commented that one thoroughly and not the other. I'm including it cause it's what I worked on for longer. Thanks!
+
 ## Problem 
 
 This policy gradient implementation addresses a very serious problem: Helping a mouse find a cookie in a grid world, while avoiding salad and eating cheese.
