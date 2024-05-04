@@ -1,15 +1,23 @@
+'''
+A class for testing the policy gradient agents' methods. 
+'''
 import unittest
 import torch
 from agent import Agent
 
-'''
-I'm not going to test probablistic functions because 
-they are inherently stochastic and will not have a deterministic
-answer to test.
-'''
 class TestAgent(unittest.TestCase):
+    '''
+    Test the deterministic methods of the Policy Gradient agent class. 
 
+    I'm not going to test probablistic functions because 
+    they are inherently stochastic and will not have a deterministic
+    answer to test.
+    '''
     def test_get_reward(self):
+        '''
+        Test the get_reward method of the Policy Gradient agent class. 
+        Test that for different state types it returns the corresponding reward.
+        '''
         device = torch.device('cuda:0')
 
         # Discrete 4x4 grid world where each state type is encoded with an integer value
@@ -36,6 +44,10 @@ class TestAgent(unittest.TestCase):
         self.assertEqual(100,reward, "The agent's reward should match that of it's state")
 
     def test_update_state(self):
+        '''
+        Test the update_state method of the Policy Gradient Agent class. 
+        Test that action updates the agents' state correctly.
+        '''
         device = torch.device('cuda:0')
 
         # Discrete 4x4 grid world where each state type is encoded with an integer value
@@ -72,6 +84,11 @@ class TestAgent(unittest.TestCase):
         self.assertEqual(agent_state, (0,2))
 
     def test_get_state_type(self):
+        '''
+        Test the get_state_type method of the Policy Gradient mouse agent class.
+
+        Test that the correct state type is returned based on the state's position/encoding in the grid world.
+        '''
         device = torch.device('cuda:0')
         # Discrete 4x4 grid world where each state type is encoded with an integer value
         grid_world = torch.tensor([[1, 0, 0, 2], [2, 0, 1, 0],[3, 0, 0, 0], [0, 1, 0, 0]], device=device)
@@ -97,6 +114,10 @@ class TestAgent(unittest.TestCase):
         self.assertEqual("Cheese",state, "The agent's state should match that of the grid world")
 
     def test_disc_rewards(self):
+        '''
+        Test that disc_rewards method calculcates the discounted sum of rewards correctly for a dummy
+        episode's worth of data.
+        '''
         device = torch.device('cuda:0')
         # Discrete 4x4 grid world where each state type is encoded with an integer value
         grid_world = torch.tensor([[1, 0, 0, 2], [2, 0, 1, 0],[3, 0, 0, 0], [0, 1, 0, 0]], device=device)

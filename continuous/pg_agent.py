@@ -53,16 +53,12 @@ class MouseAgent(nn.Module):
         x = F.relu(self.linear2(x))
         x = F.relu(self.linear3(x))
         mean_accel_x, mean_accel_y = self.action_mean(x)
-         # Extract the parameters for the covariance matrix
         raw_cov_params = self.covariance_matrix(x)
-        
-        # Ensure the diagonal elements are positive
         L = torch.zeros((2, 2), device=self.device)
-        L[0, 0] = torch.exp(raw_cov_params[0])  # exp to ensure positive
-        L[1, 0] = raw_cov_params[1]             # covariance term
-        L[1, 1] = torch.exp(raw_cov_params[2])  # exp to ensure positive
+        L[0, 0] = torch.exp(raw_cov_params[0])
+        L[1, 0] = raw_cov_params[1]    
+        L[1, 1] = torch.exp(raw_cov_params[2])
         
-        # Compute the full covariance matrix
         cov_matrix = L @ L.T
         mean = torch.tensor([mean_accel_x, mean_accel_y], requires_grad=True).to(self.device).float() 
         return mean, cov_matrix

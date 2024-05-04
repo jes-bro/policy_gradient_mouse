@@ -31,17 +31,17 @@ agent = Agent(2, device, grid_world, state_dict)
 # Learning rate is 1e-2 because it seems like a reasonable choice
 optimizer = torch.optim.Adam(agent.parameters(), lr=0.001)
 
-'''
-Train a mouse agent to learn a policy that will take it to a cookie 
-while avoiding salads.
-
-Using pytorch, train a single layer NN to encode a policy that maps discrete
-grid world states (encoded as x, y coordinates) to actions (which are up, down,
-left, right). The actions update the state directly, so there is no need to evolve
-the state forward through an ODE integrator or anything.
-
-'''
 def train():
+    '''
+    Train a mouse agent to learn a policy that will take it to a cookie 
+    while avoiding salads.
+
+    Using pytorch, train a single layer NN to encode a policy that maps discrete
+    grid world states (encoded as x, y coordinates) to actions (which are up, down,
+    left, right). The actions update the state directly, so there is no need to evolve
+    the state forward through an ODE integrator or anything.
+
+    '''
     for epoch in range(run.config.epochs):
         total_reward = 0
         episode = agent.collect_episode()
@@ -61,14 +61,14 @@ def train():
         wandb.log({"epoch":epoch, "loss": loss, "total_reward": total_reward})
     return episode
 
-'''
-Print the policy as a grid world where each state corresponds to the action the policy recommend
-the agent take if it were in that state.
-
-Params:
-    agent: The mouse agent that learns the policy to navigate the grid world
-'''
 def print_policy(agent):
+    '''
+    Print the policy as a grid world where each state corresponds to the action the policy recommend
+    the agent take if it were in that state.
+
+    Params:
+        agent: The mouse agent that learns the policy to navigate the grid world
+    '''
     action_labels = {0: 'Down', 1: 'Up', 2: 'Right', 3: 'Left'}
     state_emojis = {0: "🔲", 1: "🧀", 2: "🥗", 3: "🍪"}
     policy_map = torch.zeros(grid_world.shape, dtype=torch.int)
