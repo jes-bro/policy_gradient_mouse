@@ -123,6 +123,10 @@ The policy converged on something meaningful and actually encoded actions that w
 
 Here is an illustration of the results: 
 
+<img src="https://github.com/jes-bro/policy_gradient_mouse/blob/main/works.png"
+     alt="Working policy"
+     style="float: left; margin-right: 10px;" />
+
 ### Continuous
 
 That wasn't the case for the continuous policy :(. Not sure if it's a bug or a symptom of training or of the ode integration, there were a lot of potential points of failure. I'm including it here because I did a lot of work on it and I still learned a lot. 
